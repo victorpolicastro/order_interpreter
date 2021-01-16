@@ -3,7 +3,7 @@
 class City < ApplicationRecord
   has_many :neighborhoods, dependent: :destroy
 
-  belongs_to :country
+  belongs_to :state
 
   validates :name, presence: true
 end

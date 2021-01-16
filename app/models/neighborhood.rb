@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Neighborhood < ApplicationRecord
-  has_many :address, dependent: :destroy
+  has_many :addresses, dependent: :destroy
 
   belongs_to :city
 

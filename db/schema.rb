@@ -18,16 +18,21 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
   create_table "addresses", force: :cascade do |t|
     t.bigint "buyer_id", null: false
     t.bigint "city_id", null: false
+    t.bigint "neighborhood_id", null: false
     t.integer "external_code"
     t.string "address_line"
     t.string "street_name"
     t.string "street_number"
     t.string "comment"
     t.string "zip_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.string "receiver_phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["buyer_id"], name: "index_addresses_on_buyer_id"
     t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["neighborhood_id"], name: "index_addresses_on_neighborhood_id"
   end
 
   create_table "billing_infos", force: :cascade do |t|
@@ -92,6 +97,37 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
+  create_table "order_payments", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.integer "external_code"
+    t.integer "payer_id"
+    t.integer "installments"
+    t.string "payment_type"
+    t.string "status"
+    t.decimal "transaction_amount"
+    t.decimal "taxes_amount"
+    t.decimal "shipping_cost"
+    t.decimal "total_paid_amount"
+    t.decimal "installment_amount"
+    t.datetime "date_approved"
+    t.datetime "date_created"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_payments_on_order_id"
+  end
+
+  create_table "order_shippings", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "address_id", null: false
+    t.integer "external_code"
+    t.string "shipment_type"
+    t.datetime "date_created"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_order_shippings_on_address_id"
+    t.index ["order_id"], name: "index_order_shippings_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "external_code"
     t.integer "store_id"
@@ -110,25 +146,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
     t.index ["buyer_id"], name: "index_orders_on_buyer_id"
   end
 
-  create_table "payments", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.integer "external_code"
-    t.integer "payer_id"
-    t.integer "installments"
-    t.string "payment_type"
-    t.string "status"
-    t.decimal "transaction_amount"
-    t.decimal "taxes_amount"
-    t.decimal "shipping_cost"
-    t.decimal "total_paid_amount"
-    t.decimal "installment_amount"
-    t.datetime "date_approved"
-    t.datetime "date_created"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_payments_on_order_id"
-  end
-
   create_table "phones", force: :cascade do |t|
     t.bigint "buyer_id", null: false
     t.integer "area_code"
@@ -138,34 +155,27 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
     t.index ["buyer_id"], name: "index_phones_on_buyer_id"
   end
 
-  create_table "shippings", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "address_id", null: false
-    t.integer "external_code"
-    t.string "shipment_type"
-    t.datetime "date_created"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_shippings_on_address_id"
-    t.index ["order_id"], name: "index_shippings_on_order_id"
-  end
-
   create_table "states", force: :cascade do |t|
+    t.bigint "country_id", null: false
+    t.string "code"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_states_on_country_id"
   end
 
   add_foreign_key "addresses", "buyers"
   add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "neighborhoods"
   add_foreign_key "billing_infos", "buyers"
   add_foreign_key "cities", "states"
   add_foreign_key "neighborhoods", "cities"
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "order_payments", "orders"
+  add_foreign_key "order_shippings", "addresses"
+  add_foreign_key "order_shippings", "orders"
   add_foreign_key "orders", "buyers"
-  add_foreign_key "payments", "orders"
   add_foreign_key "phones", "buyers"
-  add_foreign_key "shippings", "addresses"
-  add_foreign_key "shippings", "orders"
+  add_foreign_key "states", "countries"
 end

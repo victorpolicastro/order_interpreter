@@ -1,6 +1,6 @@
-class CreatePayment < ActiveRecord::Migration[6.1]
+class CreateOrderPayment < ActiveRecord::Migration[6.1]
   def change
-    create_table :payments do |t|
+    create_table :order_payments do |t|
       t.references :order, null: false, foreign_key: true
       t.integer :external_code
       t.integer :payer_id

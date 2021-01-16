@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Item < AppliacationRecord
-  has_many :order_items, dependent: :destroy
+class Item < ApplicationRecord
+  has_many :order_items, class_name: 'Order::Item', dependent: :destroy
 
   validates :external_code, :title, presence: true
 end
