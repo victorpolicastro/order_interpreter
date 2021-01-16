@@ -46,12 +46,14 @@ end
 
 group :development do
   gem 'listen', '~> 3.3'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Spring speeds up development by keeping your application running in the background
   gem 'spring'
 end
 
 group :test do
-  # Code coverage for Ruby with a powerful configuration library and automatic merging of coverage across test suites
+  # Simple one-liner tests for common Rails functionality
+  gem 'shoulda-matchers'
+  # Code coverage for Ruby
   gem 'simplecov'
 end
 
