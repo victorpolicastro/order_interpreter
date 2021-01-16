@@ -51,7 +51,9 @@ group :development do
 end
 
 group :test do
-  # Code coverage for Ruby with a powerful configuration library and automatic merging of coverage across test suites
+  # Simple one-liner tests for common Rails functionality
+  gem 'shoulda-matchers'
+  # Code coverage for Ruby
   gem 'simplecov'
 end
 
