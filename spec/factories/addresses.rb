@@ -3,11 +3,11 @@
 FactoryBot.define do
   factory :address do
     buyer
-    neighbourhood
+    neighborhood
     street_name { Faker::Address.street_name }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
     zip_code { Faker::Address.zip_code }
-    number { Faker::Number.number(digits: 3) }
+    street_number { Faker::Number.number(digits: 3) }
   end
 end

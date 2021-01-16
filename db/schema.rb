@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
 
   create_table "addresses", force: :cascade do |t|
     t.bigint "buyer_id", null: false
-    t.bigint "city_id", null: false
     t.bigint "neighborhood_id", null: false
     t.integer "external_code"
     t.string "address_line"
@@ -31,7 +30,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["buyer_id"], name: "index_addresses_on_buyer_id"
-    t.index ["city_id"], name: "index_addresses_on_city_id"
     t.index ["neighborhood_id"], name: "index_addresses_on_neighborhood_id"
   end
 
@@ -118,13 +116,11 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
 
   create_table "order_shippings", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.bigint "address_id", null: false
     t.integer "external_code"
     t.string "shipment_type"
     t.datetime "date_created"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["address_id"], name: "index_order_shippings_on_address_id"
     t.index ["order_id"], name: "index_order_shippings_on_order_id"
   end
 
@@ -165,7 +161,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
   end
 
   add_foreign_key "addresses", "buyers"
-  add_foreign_key "addresses", "cities"
   add_foreign_key "addresses", "neighborhoods"
   add_foreign_key "billing_infos", "buyers"
   add_foreign_key "cities", "states"
@@ -173,7 +168,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_payments", "orders"
-  add_foreign_key "order_shippings", "addresses"
   add_foreign_key "order_shippings", "orders"
   add_foreign_key "orders", "buyers"
   add_foreign_key "phones", "buyers"
