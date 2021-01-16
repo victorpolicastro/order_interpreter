@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
   end
 
   create_table "buyers", force: :cascade do |t|
-    t.integer "external_code"
+    t.bigint "external_code"
     t.string "nickname"
     t.string "email"
     t.string "first_name"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
 
   create_table "neighborhoods", force: :cascade do |t|
     t.bigint "city_id", null: false
-    t.integer "external_code"
+    t.bigint "external_code"
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
 
   create_table "order_payments", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.integer "external_code"
+    t.bigint "external_code"
     t.integer "payer_id"
     t.integer "installments"
     t.string "payment_type"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
 
   create_table "order_shippings", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.integer "external_code"
+    t.bigint "external_code"
     t.string "shipment_type"
     t.datetime "date_created"
     t.datetime "created_at", precision: 6, null: false
@@ -125,8 +125,8 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.integer "external_code"
-    t.integer "store_id"
+    t.bigint "external_code"
+    t.bigint "store_id"
     t.datetime "date_created"
     t.datetime "date_closed"
     t.datetime "last_updated"
