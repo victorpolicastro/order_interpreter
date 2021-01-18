@@ -3,7 +3,7 @@
 class Buyer
   class CreatorService
     def initialize(params)
-      @external_code = params[:external_code]
+      @external_code = params[:id]
       @nickname = params[:nickname]
       @email = params[:email]
       @first_name = params[:first_name]

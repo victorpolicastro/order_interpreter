@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Order::Shipping do
+RSpec.describe OrderShipping do
   describe 'association' do
     it { is_expected.to belong_to(:order) }
   end

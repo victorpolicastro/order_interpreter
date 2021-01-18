@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Order::Payment do
+RSpec.describe OrderPayment do
   describe 'associations' do
     it { is_expected.to belong_to(:order) }
   end

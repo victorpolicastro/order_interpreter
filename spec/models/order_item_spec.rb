@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Order::Item do
+RSpec.describe OrderItem do
   describe 'associations' do
     it { is_expected.to belong_to(:item) }
     it { is_expected.to belong_to(:order) }

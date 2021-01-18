@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :order_item, class: 'Order::Item' do
+  factory :order_item do
     order
     item
     quantity { Faker::Number.number(digits: 1) }

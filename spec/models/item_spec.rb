@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Item do
   describe 'association' do
-    it { is_expected.to have_many(:order_items).class_name('Order::Item') }
+    it { is_expected.to have_many(:order_items).dependent(:destroy) }
   end
 
   describe 'validations' do
