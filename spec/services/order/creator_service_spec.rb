@@ -6,13 +6,16 @@ RSpec.describe Order::CreatorService do
   describe '#call' do
     let!(:buyer) { create(:buyer) }
     let!(:order) { build(:order) }
+    let(:params) do
+      {
+        id: order.external_code, store_id: order.store_id, date_created: order.date_created,
+        date_closed: order.date_closed, last_updated: order.last_updated, total_amount: order.total_amount,
+        total_shipping: order.total_shipping, paid_amount: order.paid_amount, expiration_date: order.expiration_date,
+        status: order.status, total_amount_with_shipping: order.total_amount_with_shipping
+      }
+    end
     let(:service) do
-      described_class.new(buyer: buyer, id: order.external_code, store_id: order.store_id,
-                          date_created: order.date_created, date_closed: order.date_closed,
-                          last_updated: order.last_updated, total_amount: order.total_amount,
-                          total_shipping: order.total_shipping, paid_amount: order.paid_amount,
-                          expiration_date: order.expiration_date, status: order.status,
-                          total_amount_with_shipping: order.total_amount_with_shipping)
+      described_class.new(buyer: buyer, params: params)
     end
 
     context 'when valid' do

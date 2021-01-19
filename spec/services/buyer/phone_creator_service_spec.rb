@@ -6,8 +6,13 @@ RSpec.describe Buyer::PhoneCreatorService do
   describe '#call' do
     let!(:buyer) { create(:buyer) }
     let!(:phone) { build(:phone) }
+    let(:params) do
+      {
+        area_code: phone.area_code, number: phone.number
+      }
+    end
     let(:service) do
-      described_class.new(buyer: buyer, area_code: phone.area_code, number: phone.number)
+      described_class.new(buyer: buyer, params: params)
     end
 
     context 'when valid' do

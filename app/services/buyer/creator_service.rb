@@ -13,8 +13,8 @@ class Buyer
     def call
       OpenStruct.new(success?: true, object: create_buyer!)
     rescue StandardError => e
-      Rails.logger.error(e.backtrace.join("\n"))
       Rails.logger.error(e)
+      Rails.logger.error(e.backtrace.join("\n"))
 
       OpenStruct.new(success?: false, messages: e.message)
     end

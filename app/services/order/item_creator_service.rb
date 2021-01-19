@@ -2,7 +2,7 @@
 
 class Order
   class ItemCreatorService
-    def initialize(order:, item:, **params)
+    def initialize(order:, item:, params:)
       @order = order
       @item = item
       @quantity = params[:quantity]

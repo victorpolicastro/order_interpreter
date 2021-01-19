@@ -10,6 +10,8 @@ AllCops:
     - db/**/*
     - config/**/*
     - node_modules/**/*
+    - spec/controllers/**/*
+    - spec/services/**/*
     - Rakefile
 
 Style/Documentation:

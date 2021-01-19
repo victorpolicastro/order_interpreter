@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class NeighborhoodCreatorService
-  def initialize(city:, **params)
+  def initialize(city:, params:)
     @city = city
     @external_code = params[:external_code]
     @name = params[:name]
@@ -21,6 +21,9 @@ class NeighborhoodCreatorService
   attr_reader :city, :external_code, :name
 
   def create_neighborhood!
-    Neighborhood.create!(city: city, external_code: external_code, name: name)
+    neighborhood = Neighborhood.find_or_initialize_by(city: city, external_code: external_code, name: name)
+    neighborhood.save!
+
+    neighborhood
   end
 end

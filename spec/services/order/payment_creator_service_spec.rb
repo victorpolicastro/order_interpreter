@@ -6,13 +6,17 @@ RSpec.describe Order::PaymentCreatorService do
   describe '#call' do
     let!(:order) { create(:order) }
     let!(:payment) { create(:order_payment) }
+    let(:params) do
+      {
+        id: payment.external_code, payer_id: payment.payer_id, installments: payment.installments,
+        payment_type: payment.payment_type, status: payment.status, transaction_amount: payment.transaction_amount,
+        taxes_amount: payment.taxes_amount, shipping_cost: payment.shipping_cost,
+        total_paid_amount: payment.total_paid_amount, date_created: payment.date_created,
+        installment_amount: payment.installment_amount, date_approved: payment.date_approved
+      }
+    end
     let(:service) do
-      described_class.new(order: order, id: payment.external_code, payer_id: payment.payer_id,
-                          installments: payment.installments, payment_type: payment.payment_type,
-                          status: payment.status, transaction_amount: payment.transaction_amount,
-                          taxes_amount: payment.taxes_amount, shipping_cost: payment.shipping_cost,
-                          total_paid_amount: payment.total_paid_amount, date_created: payment.date_created,
-                          installment_amount: payment.installment_amount, date_approved: payment.date_approved)
+      described_class.new(order: order, params: params)
     end
 
     context 'when valid' do

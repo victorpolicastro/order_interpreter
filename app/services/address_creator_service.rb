@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AddressCreatorService
-  def initialize(buyer:, neighborhood:, **params)
+  def initialize(buyer:, neighborhood:, params:)
     @buyer = buyer
     @neighborhood = neighborhood
     @params = params

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class CityCreatorService
-  def initialize(state:, name:)
+  def initialize(state:, params:)
     @state = state
-    @name = name
+    @name = params[:name]
   end
 
   def call
@@ -20,6 +20,9 @@ class CityCreatorService
   attr_reader :state, :name
 
   def create_city!
-    City.create!(state: state, name: name)
+    city = City.find_or_initialize_by(state: state, name: name)
+    city.save!
+
+    city
   end
 end

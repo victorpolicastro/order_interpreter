@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class StateCreatorService
-  def initialize(country:, name:, code:)
+  def initialize(country:, params:)
     @country = country
-    @name = name
-    @code = code
+    @name = params[:name]
+    @code = params[:code]
   end
 
   def call
@@ -21,6 +21,9 @@ class StateCreatorService
   attr_reader :country, :name, :code
 
   def create_state!
-    State.create!(country: country, name: name, code: code)
+    state = State.find_or_initialize_by(country: country, name: name, code: code)
+    state.save!
+
+    state
   end
 end

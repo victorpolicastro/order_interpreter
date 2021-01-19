@@ -7,12 +7,15 @@ RSpec.describe AddressCreatorService do
     let!(:buyer) { create(:buyer) }
     let!(:neighborhood) { create(:neighborhood) }
     let!(:address) { build(:address) }
+    let(:params) do
+      {
+        id: address.external_code, address_line: address.address_line, street_name: address.street_name,
+        street_number: address.street_number, comment: address.comment, zip_code: address.zip_code,
+        latitude: address.latitude, longitude: address.longitude, receiver_phone: address.receiver_phone
+      }
+    end
     let(:service) do
-      described_class.new(buyer: buyer, neighborhood: neighborhood, id: address.external_code,
-                          address_line: address.address_line, street_name: address.street_name,
-                          street_number: address.street_number, comment: address.comment, zip_code: address.zip_code,
-                          latitude: address.latitude, longitude: address.longitude,
-                          receiver_phone: address.receiver_phone)
+      described_class.new(buyer: buyer, neighborhood: neighborhood, params: params)
     end
 
     context 'when valid' do

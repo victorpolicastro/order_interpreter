@@ -7,9 +7,13 @@ RSpec.describe Order::ItemCreatorService do
     let!(:order) { create(:order) }
     let!(:item) { create(:item) }
     let!(:order_item) { create(:order_item) }
+    let(:params) do
+      {
+        quantity: order_item.quantity, unit_price: order_item.unit_price, full_unit_price: order_item.full_unit_price
+      }
+    end
     let(:service) do
-      described_class.new(order: order, item: item, quantity: order_item.quantity, unit_price: order_item.unit_price,
-                          full_unit_price: order_item.full_unit_price)
+      described_class.new(order: order, item: item, params: params)
     end
 
     context 'when valid' do

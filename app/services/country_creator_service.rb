@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CountryCreatorService
-  def initialize(**params)
+  def initialize(params:)
     @code = params[:id]
     @name = params[:name]
   end
@@ -20,6 +20,9 @@ class CountryCreatorService
   attr_reader :code, :name
 
   def create_country!
-    Country.create!(code: code, name: name)
+    country = Country.find_or_initialize_by(code: code, name: name)
+    country.save!
+
+    country
   end
 end

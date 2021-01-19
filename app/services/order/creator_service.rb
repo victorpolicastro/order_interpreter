@@ -2,7 +2,7 @@
 
 class Order
   class CreatorService
-    def initialize(buyer:, **params)
+    def initialize(buyer:, params:)
       @buyer = buyer
       @params = params
     end

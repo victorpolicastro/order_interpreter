@@ -2,17 +2,17 @@
 
 class Buyer
   class PhoneCreatorService
-    def initialize(buyer:, area_code:, number:)
+    def initialize(buyer:, params:)
       @buyer = buyer
-      @area_code = area_code
-      @number = number
+      @area_code = params[:area_code]
+      @number = params[:number]
     end
 
     def call
       OpenStruct.new(success?: true, object: create_phone!)
     rescue StandardError => e
-      Rails.logger.error(e.backtrace.join("\n"))
       Rails.logger.error(e)
+      Rails.logger.error(e.backtrace.join("\n"))
 
       OpenStruct.new(success?: false, message: e.message)
     end

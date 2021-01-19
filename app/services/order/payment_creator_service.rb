@@ -2,7 +2,7 @@
 
 class Order
   class PaymentCreatorService
-    def initialize(order:, **params)
+    def initialize(order:, params:)
       @order = order
       @params = params
     end
@@ -10,6 +10,9 @@ class Order
     def call
       OpenStruct.new(success?: true, object: create_order_payment!)
     rescue StandardError => e
+      Rails.logger.error(e)
+      Rails.logger.error(e.backtrace.join("\n"))
+
       OpenStruct.new(success?: false, message: e.message)
     end
 
