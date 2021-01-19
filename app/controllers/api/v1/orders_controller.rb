@@ -4,6 +4,7 @@
 class Api::V1::OrdersController < ApplicationController
   def create
     response = InputService.new(params).call
+    SendRequestService.new(order: response.object).call
 
     return render json: { error: response.message } unless response.success?
 
