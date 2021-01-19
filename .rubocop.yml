@@ -10,10 +10,12 @@ AllCops:
     - db/**/*
     - config/**/*
     - node_modules/**/*
+    - spec/controllers/**/*
+    - spec/services/**/*
     - Rakefile
 
 Style/Documentation:
   Enabled: false
 
 Layout/LineLength:
-  Max: 100
+  Max: 120
