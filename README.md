@@ -25,3 +25,4 @@ Due to time, the following list can't be done
 1. 100% of spec coverage
 2. Test the request for API and SendRequestService with WebMock
 3. Fix failling spec and service
+4. Create a Worker to send request
