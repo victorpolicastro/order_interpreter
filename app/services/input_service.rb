@@ -8,9 +8,9 @@ class InputService
   def call
     buyer = create_buyer
     input_address(buyer)
-    input_order(buyer)
+    order = input_order(buyer)
 
-    OpenStruct.new(success?: true)
+    OpenStruct.new(success?: true, object: order)
   rescue StandardError => e
     Rails.logger.error(e)
     Rails.logger.error(e.backtrace.join("\n"))
@@ -39,6 +39,6 @@ class InputService
   end
 
   def input_order(buyer)
-    InputOrderService.new(buyer: buyer, params: params).call
+    InputOrderService.new(buyer: buyer, params: params).call.object
   end
 end
