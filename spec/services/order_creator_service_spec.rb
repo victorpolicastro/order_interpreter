@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Order::CreatorService do
+RSpec.describe OrderCreatorService do
   describe '#call' do
     let!(:buyer) { create(:buyer) }
     let!(:order) { build(:order) }

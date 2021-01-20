@@ -7,9 +7,10 @@ class InputOrderService
   end
 
   def call
-    order_items
-    payments
-    shipping
+    order = create_order
+    order_items(order)
+    payments(order)
+    shipping(order)
 
     OpenStruct.new(success?: true, object: order)
   rescue StandardError => e
@@ -23,21 +24,21 @@ class InputOrderService
 
   attr_reader :buyer, :params
 
-  def order
-    @order ||= Order::CreatorService.new(buyer: buyer, params: params).call.object
+  def create_order
+    OrderCreatorService.new(buyer: buyer, params: params).call.object
   end
 
-  def order_items
+  def order_items(order)
     InputItemService.new(order: order, params: params[:order_items]).call
   end
 
-  def payments
+  def payments(order)
     params[:payments].each do |payment|
       Order::PaymentCreatorService.new(order: order, params: payment).call
     end
   end
 
-  def shipping
+  def shipping(order)
     Order::ShippingCreatorService.new(order: order, params: params[:shipping]).call
   end
 end

@@ -14,7 +14,6 @@ RSpec.describe InputOrderService do
         date_closed: order.date_closed,
         last_updated: order.last_updated,
         total_amount: order.total_amount,
-        total_shipping: order.total_shipping,
         total_amount_with_shipping: order.total_amount_with_shipping,
         paid_amount: order.paid_amount,
         expiration_date: order.expiration_date,

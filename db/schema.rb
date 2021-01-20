@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
     t.string "street_number"
     t.string "comment"
     t.string "zip_code"
-    t.decimal "latitude"
-    t.decimal "longitude"
+    t.float "latitude"
+    t.float "longitude"
     t.string "receiver_phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -86,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
   create_table "order_items", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.bigint "item_id", null: false
-    t.decimal "quantity"
+    t.integer "quantity"
     t.decimal "unit_price"
     t.decimal "full_unit_price"
     t.datetime "created_at", precision: 6, null: false

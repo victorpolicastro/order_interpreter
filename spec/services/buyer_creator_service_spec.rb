@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Buyer::CreatorService do
+RSpec.describe BuyerCreatorService do
   describe '#call' do
     let!(:buyer) { build(:buyer) }
     let(:service) do

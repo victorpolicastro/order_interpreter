@@ -59,6 +59,7 @@ RSpec.describe Api::V1::OrdersController do
               name: 'Cidade de Testes'
             },
             state: {
+              code: 'SP',
               name: 'São Paulo'
             },
             country: {
