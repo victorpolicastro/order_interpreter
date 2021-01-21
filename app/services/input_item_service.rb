@@ -13,11 +13,6 @@ class InputItemService
     end
 
     OpenStruct.new(success?: true)
-  rescue StandardError => e
-    Rails.logger.error(e)
-    Rails.logger.error(e.backtrace.join("\n"))
-
-    OpenStruct.new(success?: false, message: e.message)
   end
 
   private
