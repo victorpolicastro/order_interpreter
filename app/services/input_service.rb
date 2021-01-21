@@ -11,11 +11,6 @@ class InputService
     order = input_order(buyer)
 
     OpenStruct.new(success?: true, object: order)
-  rescue StandardError => e
-    Rails.logger.error(e)
-    Rails.logger.error(e.backtrace.join("\n"))
-
-    OpenStruct.new(success?: false, message: e.message)
   end
 
   private
@@ -23,7 +18,10 @@ class InputService
   attr_reader :params
 
   def create_buyer
-    InputBuyerService.new(buyer_params).call.object
+    buyer = BuyerCreatorService.new(buyer_params).call.object
+    Buyer::PhoneCreatorService.new(buyer: buyer, params: buyer_params[:phone]).call
+
+    buyer
   end
 
   def buyer_params

@@ -8,11 +8,6 @@ class InputAddressService
 
   def call
     OpenStruct.new(success?: true, object: address)
-  rescue StandardError => e
-    Rails.logger.error(e)
-    Rails.logger.error(e.backtrace.join("\n"))
-
-    OpenStruct.new(success?: false, message: e.message)
   end
 
   private

@@ -3,11 +3,8 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Api::V1::OrdersController < ApplicationController
   def create
-    order_response = InputService.new(params).call
-
-    return render json: { error: order_response.message }, status: :unprocessable_entity unless order_response.success?
-
-    response = SendRequestService.new(order: order_response.object).call
+    order = InputService.new(params).call.object
+    response = SendRequestService.new(order: order).call
 
     return render json: { error: response.message }, status: :unprocessable_entity unless response.success?
 

@@ -96,10 +96,10 @@ RSpec.describe Api::V1::OrdersController do
 
     it 'responds with status 201' do
       Timecop.freeze do
-        stub_request(:post, "https://delivery-center-recruitment-ap.herokuapp.com/").
+        stub_request(:post, 'https://delivery-center-recruitment-ap.herokuapp.com/').
            with(
              headers: {
-         	  'Headers'=>{"X-Sent"=>Time.zone.now.strftime('%Hh%M - %e/%m/%y')},
+         	  'Headers'=>{'X-Sent' => Time.zone.now.strftime('%Hh%M - %e/%m/%y')},
          	  'Host'=>'delivery-center-recruitment-ap.herokuapp.com',
              }).
            to_return(status: 200, body: "OK", headers: {})
