@@ -5,5 +5,5 @@ class State < ApplicationRecord
 
   belongs_to :country
 
-  validates :code, :name, presence: true
+  validates :name, presence: true
 end

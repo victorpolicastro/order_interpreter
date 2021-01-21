@@ -2,7 +2,7 @@
 
 class SendRequestService
   METHOD = 'POST'
-  URL = 'https://delivery-center-recruitment-ap.herokuapp.com/'
+  ENDPOINT = 'https://delivery-center-recruitment-ap.herokuapp.com/'
 
   def initialize(order:)
     @order = order
@@ -18,7 +18,7 @@ class SendRequestService
   end
 
   def call
-    OpenStruct.new(success?: true, object: send_request)
+    OpenStruct.new(success?: true, message: send_request)
   rescue StandardError => e
     Rails.logger.error(e)
     Rails.logger.error(e.backtrace.join("\n"))
@@ -31,15 +31,11 @@ class SendRequestService
   attr_reader :order, :order_items, :order_payments, :buyer, :phone, :address, :neighborhood, :city, :state, :country
 
   def send_request
-    response = RestClient::Request.execute(
-      method: method.to_sym, url: endpoint, headers: { 'X-sent': x_sent, params: params }
-    )
-    JSON.parse(response)
+    RestClient.post(ENDPOINT, payload.to_json, headers: { 'X-Sent' => x_sent }).body
   end
 
   def x_sent
-    datetime = Time.current
-    "#{datetime.strftime('%Hh%M')} - #{datetime.strftime('%d/%m/%y')}"
+    Time.zone.now.strftime('%Hh%M - %e/%m/%y')
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
@@ -47,10 +43,10 @@ class SendRequestService
     {
       externalCode: order.external_code,
       storeId: order.store_id,
-      subTotal: order.total_amount,
-      deliveryFee: order.total_shipping,
-      total_shipping: order.total_shipping,
-      total: order.total_amount_with_shipping,
+      subTotal: order.total_amount.to_f,
+      deliveryFee: order.total_shipping.to_f,
+      total_shipping: order.total_shipping.to_f,
+      total: order.total_amount_with_shipping.to_f,
       country: country.code,
       state: state.code,
       city: city.name,
@@ -59,7 +55,7 @@ class SendRequestService
       complement: address.comment,
       latitude: address.latitude,
       longitude: address.longitude,
-      dtOrderCreate: order.date_created,
+      dtOrderCreate: order.date_created.to_s,
       postalCode: address.zip_code,
       number: address.street_number,
       customer: {
@@ -74,29 +70,25 @@ class SendRequestService
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Lint/Void
   def items_payload
-    order_items.each do |order_item|
+    order_items.map do |order_item|
       {
         externalCode: order_item.item.external_code,
-        name: order_item.item.name,
-        price: order_item.unit_price,
-        quantity: order.quantity,
-        total: order.full_unit_price,
+        name: order_item.item.title,
+        price: order_item.unit_price.to_f,
+        quantity: order_item.quantity,
+        total: order_item.full_unit_price.to_f,
         subItems: []
       }
     end
   end
-  # rubocop:enable Lint/Void
 
-  # rubocop:disable Lint/Void
   def payments_payload
-    order_payments.each do |order_payment|
+    order_payments.map do |order_payment|
       {
         type: order_payment.payment_type,
-        value: order_payment.total_paid_amount
+        value: order_payment.total_paid_amount.to_f
       }
     end
   end
-  # rubocop:enable Lint/Void
 end

@@ -6,8 +6,8 @@ class InputBuyerService
   end
 
   def call
-    billing_info
-    phone
+    buyer = create_buyer
+    phone(buyer)
 
     OpenStruct.new(success?: true, object: buyer)
   rescue StandardError => e
@@ -21,15 +21,11 @@ class InputBuyerService
 
   attr_reader :params
 
-  def buyer
-    @buyer ||= ::Buyer::CreatorService.new(params).call.object
+  def create_buyer
+    BuyerCreatorService.new(params).call.object
   end
 
-  def billing_info
-    ::Buyer::BillingInfoCreatorService.new(buyer: buyer, params: params[:billing_info]).call
-  end
-
-  def phone
+  def phone(buyer)
     ::Buyer::PhoneCreatorService.new(buyer: buyer, params: params[:phone]).call
   end
 end

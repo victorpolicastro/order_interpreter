@@ -9,8 +9,6 @@ RSpec.describe State do
   end
 
   describe 'validations' do
-    %i[code name].each do |field|
-      it { is_expected.to validate_presence_of(field) }
-    end
+    it { is_expected.to validate_presence_of(:name) }
   end
 end

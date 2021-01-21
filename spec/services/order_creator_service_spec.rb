@@ -2,13 +2,16 @@
 
 require 'rails_helper'
 
-RSpec.describe Buyer::BillingInfoCreatorService do
+RSpec.describe OrderCreatorService do
   describe '#call' do
     let!(:buyer) { create(:buyer) }
-    let!(:billing_info) { build(:billing_info) }
+    let!(:order) { build(:order) }
     let(:params) do
       {
-        doc_type: billing_info.doc_type, doc_number: billing_info.doc_number
+        id: order.external_code, store_id: order.store_id, date_created: order.date_created,
+        date_closed: order.date_closed, last_updated: order.last_updated, total_amount: order.total_amount,
+        total_shipping: order.total_shipping, paid_amount: order.paid_amount, expiration_date: order.expiration_date,
+        status: order.status, total_amount_with_shipping: order.total_amount_with_shipping
       }
     end
     let(:service) do
@@ -19,12 +22,12 @@ RSpec.describe Buyer::BillingInfoCreatorService do
       let!(:response) { service.call }
 
       it { expect(response).to be_success }
-      it { expect(response.object).to be_a(BillingInfo) }
+      it { expect(response.object).to be_a(Order) }
     end
 
     context 'when invalid' do
       it 'sends errors to logger and retuns success false' do
-        allow(BillingInfo).to receive(:create!).and_raise(StandardError).once
+        allow(Order).to receive(:create!).and_raise(StandardError).once
         allow(Rails.logger).to receive(:error).twice
 
         response = service.call

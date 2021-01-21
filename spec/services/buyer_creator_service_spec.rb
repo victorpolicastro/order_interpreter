@@ -2,12 +2,24 @@
 
 require 'rails_helper'
 
-RSpec.describe Buyer::CreatorService do
+RSpec.describe BuyerCreatorService do
   describe '#call' do
     let!(:buyer) { build(:buyer) }
+    let(:payload) do
+      {
+        id: buyer.external_code,
+        nickname: buyer.nickname,
+        email: buyer.email,
+        first_name: buyer.first_name,
+        last_name: buyer.last_name,
+        billing_info: {
+          doc_type: buyer.doc_type,
+          doc_number: buyer.doc_number
+        }
+      }
+    end
     let(:service) do
-      described_class.new(id: buyer.external_code, nickname: buyer.nickname, email: buyer.email,
-                          first_name: buyer.first_name, last_name: buyer.last_name)
+      described_class.new(payload)
     end
 
     context 'when valid' do

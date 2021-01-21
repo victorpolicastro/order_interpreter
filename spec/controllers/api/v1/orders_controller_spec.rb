@@ -59,6 +59,7 @@ RSpec.describe Api::V1::OrdersController do
               name: 'Cidade de Testes'
             },
             state: {
+              code: 'SP',
               name: 'São Paulo'
             },
             country: {
@@ -94,7 +95,17 @@ RSpec.describe Api::V1::OrdersController do
     end
 
     it 'responds with status 201' do
-      post :create, params: payload
+      Timecop.freeze do
+        stub_request(:post, "https://delivery-center-recruitment-ap.herokuapp.com/").
+           with(
+             headers: {
+         	  'Headers'=>{"X-Sent"=>Time.zone.now.strftime('%Hh%M - %e/%m/%y')},
+         	  'Host'=>'delivery-center-recruitment-ap.herokuapp.com',
+             }).
+           to_return(status: 200, body: "OK", headers: {})
+
+        post :create, params: payload
+      end
 
       expect(response).to have_http_status(:created)
     end

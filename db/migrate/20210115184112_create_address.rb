@@ -9,8 +9,8 @@ class CreateAddress < ActiveRecord::Migration[6.1]
       t.string :street_number
       t.string :comment
       t.string :zip_code
-      t.numeric :latitude
-      t.numeric :longitude
+      t.float :latitude
+      t.float :longitude
       t.string :receiver_phone
 
       t.timestamps

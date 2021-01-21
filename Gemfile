@@ -27,6 +27,9 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 
+# Simple HTTP and REST client for Ruby, inspired by microframework syntax for specifying actions.
+gem 'rest-client'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -42,6 +45,8 @@ group :development, :test do
   gem 'rubocop-rails'
   # Code style checking for RSpec files
   gem 'rubocop-rspec'
+  # A gem providing "time travel", "time freezing", and "time acceleration" capabilities
+  gem 'timecop'
 end
 
 group :development do
@@ -55,6 +60,8 @@ group :test do
   gem 'shoulda-matchers'
   # Code coverage for Ruby
   gem 'simplecov'
+  # Library for stubbing and setting expectations on HTTP requests in Ruby
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
