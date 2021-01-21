@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 require 'simplecov'
+require 'webmock/rspec'
+
 SimpleCov.start 'rails' do
   add_filter %w[spec/rails-helper.rb
                 app/channels/

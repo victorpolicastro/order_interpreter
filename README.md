@@ -19,9 +19,3 @@ To see linter offenses, run:
 # Tests
 To run all project tests, run:
   `rspec`
-
-# Next steps
-Due to time, the following list can't be done
-1. 100% of spec coverage
-2. Test the request for API and SendRequestService with WebMock
-3. Fix failling spec and service

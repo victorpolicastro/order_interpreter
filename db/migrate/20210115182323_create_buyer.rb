@@ -6,6 +6,8 @@ class CreateBuyer < ActiveRecord::Migration[6.1]
       t.string :email
       t.string :first_name
       t.string :last_name
+      t.string :doc_type
+      t.string :doc_number
 
       t.timestamps
     end

@@ -7,6 +7,8 @@ class BuyerCreatorService
     @email = params[:email]
     @first_name = params[:first_name]
     @last_name = params[:last_name]
+    @doc_type = params[:billing_info][:doc_type]
+    @doc_number = params[:billing_info][:doc_number]
   end
 
   def call
@@ -20,10 +22,10 @@ class BuyerCreatorService
 
   private
 
-  attr_reader :external_code, :nickname, :email, :first_name, :last_name
+  attr_reader :external_code, :nickname, :email, :first_name, :last_name, :doc_type, :doc_number
 
   def create_buyer!
     Buyer.create!(external_code: external_code, nickname: nickname, email: email, first_name: first_name,
-                  last_name: last_name)
+                  last_name: last_name, doc_type: doc_type, doc_number: doc_number)
   end
 end

@@ -7,7 +7,6 @@ class InputBuyerService
 
   def call
     buyer = create_buyer
-    billing_info(buyer)
     phone(buyer)
 
     OpenStruct.new(success?: true, object: buyer)
@@ -24,10 +23,6 @@ class InputBuyerService
 
   def create_buyer
     BuyerCreatorService.new(params).call.object
-  end
-
-  def billing_info(buyer)
-    ::Buyer::BillingInfoCreatorService.new(buyer: buyer, params: params[:billing_info]).call
   end
 
   def phone(buyer)

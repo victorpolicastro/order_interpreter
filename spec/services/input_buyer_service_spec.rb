@@ -35,7 +35,6 @@ RSpec.describe InputBuyerService do
       it { expect(response.object).to be_a(Buyer) }
       it { expect(Buyer.count).to eq(1) }
       it { expect(Phone.count).to eq(1) }
-      it { expect(BillingInfo.count).to eq(1) }
     end
   end
 end

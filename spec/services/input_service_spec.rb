@@ -102,7 +102,6 @@ RSpec.describe InputService do
       it { expect(response).to be_success }
       it { expect(Buyer.count).to eq(1) }
       it { expect(Phone.count).to eq(1) }
-      it { expect(BillingInfo.count).to eq(1) }
       it { expect(Item.count).to eq(1) }
       it { expect(Order.count).to eq(1) }
       it { expect(OrderItem.count).to eq(1) }

@@ -45,6 +45,8 @@ group :development, :test do
   gem 'rubocop-rails'
   # Code style checking for RSpec files
   gem 'rubocop-rspec'
+  # A gem providing "time travel", "time freezing", and "time acceleration" capabilities
+  gem 'timecop'
 end
 
 group :development do
@@ -58,6 +60,8 @@ group :test do
   gem 'shoulda-matchers'
   # Code coverage for Ruby
   gem 'simplecov'
+  # Library for stubbing and setting expectations on HTTP requests in Ruby
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

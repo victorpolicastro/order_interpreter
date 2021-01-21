@@ -33,21 +33,14 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
     t.index ["neighborhood_id"], name: "index_addresses_on_neighborhood_id"
   end
 
-  create_table "billing_infos", force: :cascade do |t|
-    t.bigint "buyer_id", null: false
-    t.string "doc_type"
-    t.string "doc_number"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["buyer_id"], name: "index_billing_infos_on_buyer_id"
-  end
-
   create_table "buyers", force: :cascade do |t|
     t.bigint "external_code"
     t.string "nickname"
     t.string "email"
     t.string "first_name"
     t.string "last_name"
+    t.string "doc_type"
+    t.string "doc_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -162,7 +155,6 @@ ActiveRecord::Schema.define(version: 2021_01_15_190127) do
 
   add_foreign_key "addresses", "buyers"
   add_foreign_key "addresses", "neighborhoods"
-  add_foreign_key "billing_infos", "buyers"
   add_foreign_key "cities", "states"
   add_foreign_key "neighborhoods", "cities"
   add_foreign_key "order_items", "items"
