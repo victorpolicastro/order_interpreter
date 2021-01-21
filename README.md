@@ -19,3 +19,7 @@ To see linter offenses, run:
 # Tests
 To run all project tests, run:
   `rspec`
+
+# Using
+The available endpoint to send request is
+  `POST /api/v1/orders`
